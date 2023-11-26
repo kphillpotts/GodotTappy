@@ -1,12 +1,15 @@
 extends Control
 
-@onready var high_score_label = $MC/HBoxContainer/HighScoreLabel
+@onready var score_label = $MC/ScoreLabel
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	high_score_label.text = str(GameManager.get_high_score())
+	GameManager.on_score_updated.connect(on_score_updated)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("fly"):
-		GameManager.load_game_scene()
+	pass
+	
+func on_score_updated() -> void:
+	score_label.text = str(GameManager.get_score())

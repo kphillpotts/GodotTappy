@@ -15,7 +15,7 @@ func _ready():
 func _process(delta):
 	if can_press_space:
 		if Input.is_action_just_pressed("fly"):
-			GameManager.load_game_scene()
+			GameManager.load_main_scene()
 
 func _on_timer_timeout():
 	run_sequence()

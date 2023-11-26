@@ -1,7 +1,66 @@
-[gd_scene load_steps=3 format=3 uid="uid://fo2v4nu5mmvc"]
+[gd_scene load_steps=11 format=3 uid="uid://fo2v4nu5mmvc"]
 
 [ext_resource type="Script" path="res://Main/main.gd" id="1_2s2wm"]
 [ext_resource type="Texture2D" uid="uid://ckdi6nr2v3mwp" path="res://assets/background/sky.png" id="1_k6wkw"]
+[ext_resource type="LabelSettings" uid="uid://ccc8ncpqvbnje" path="res://assets/LG_72_Red.tres" id="3_hdrg7"]
+[ext_resource type="FontFile" uid="uid://d4hur2peg8x4y" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="4_kn3dx"]
+[ext_resource type="AudioStream" uid="uid://knfpbqht0qpm" path="res://assets/audio/bgm_menu.mp3" id="5_8kjci"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_drud6"]
+font = ExtResource("4_kn3dx")
+font_size = 48
+font_color = Color(0.85098, 0.941176, 0.913725, 1)
+outline_size = 3
+outline_color = Color(0.192157, 0.568627, 0.611765, 1)
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.501961)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ae4ym"]
+font = ExtResource("4_kn3dx")
+font_size = 32
+font_color = Color(0.784314, 0.243137, 0.243137, 1)
+outline_size = 3
+outline_color = Color(0.843137, 0.305882, 0.305882, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.482353)
+
+[sub_resource type="Animation" id="Animation_w8k0t"]
+resource_name = "Flash"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MC/Label2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2h0r8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MC/Label2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_76kjl"]
+_data = {
+"Flash": SubResource("Animation_w8k0t"),
+"RESET": SubResource("Animation_2h0r8")
+}
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -21,3 +80,59 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_k6wkw")
 expand_mode = 4
+
+[node name="MC" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 24
+
+[node name="Label" type="Label" parent="MC"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "TAPPY
+PLANE"
+label_settings = ExtResource("3_hdrg7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MC"]
+layout_mode = 2
+text = "Press Space
+To Play"
+label_settings = SubResource("LabelSettings_drud6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MC"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="MC/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Highscore"
+label_settings = SubResource("LabelSettings_ae4ym")
+vertical_alignment = 1
+
+[node name="HighScoreLabel" type="Label" parent="MC/HBoxContainer"]
+layout_mode = 2
+text = "000"
+label_settings = SubResource("LabelSettings_ae4ym")
+vertical_alignment = 1
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_8kjci")
+autoplay = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Flash"
+libraries = {
+"": SubResource("AnimationLibrary_76kjl")
+}

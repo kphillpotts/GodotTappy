@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-const GRAVITY: float = 1000.0
-const POWER: float = -400.0
+@export var GRAVITY: float = 1000.0
+@export var POWER: float = -400.0
 const FORWARD_POWER: float = 30
 @onready var animation_player = $AnimationPlayer
 @onready var animated_sprite_2d = $AnimatedSprite2D
