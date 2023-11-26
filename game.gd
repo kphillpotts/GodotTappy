@@ -22,11 +22,15 @@ func spawn_pipes() -> void:
 	var new_pipes = pipes_scene.instantiate() 
 	new_pipes.position = Vector2(spawn_l.position.x, y_pos)
 	pipes_holder.add_child(new_pipes)
-
+	
+func stop_pipes() -> void:
+	spawn_timer.stop()
+	for pipe in pipes_holder.get_children():
+		pipe.set_process(false)
 
 func _on_spawn_timer_timeout():
 	spawn_pipes()
 
 
 func on_game_over():
-	pass
+	stop_pipes()
