@@ -4,9 +4,26 @@ signal on_game_over
 signal on_score_updated
 
 const GROUP_PLANE: String = "plane"
+#const SCROLL_SPEED: float = 120.0
+var difficulty: float = 1
+var scroll_speed: float = 120
 
 var game_scene: PackedScene = preload("res://game.tscn")
 var main_scene: PackedScene = preload("res://Main/main.tscn")
+
+
+func get_difficulty() -> float:
+	return difficulty
+
+func increase_difficulty() -> void:
+	difficulty += 0.1
+	print ("new difficulty: %s" % difficulty)
+
+func reset_difficulty() -> void:
+	difficulty = 1
+
+func get_scroll_speed() -> float:
+	return scroll_speed * difficulty
 
 var score: int = 0
 

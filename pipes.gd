@@ -1,7 +1,7 @@
 extends Node2D
 @onready var score_sound = $ScoreSound
 
-const SCROLL_SPEED: float = 120.0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -10,7 +10,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position.x -= SCROLL_SPEED * delta
+	position.x -= GameManager.get_scroll_speed() * delta
 
 
 func _on_screen_notifier_2d_screen_exited():

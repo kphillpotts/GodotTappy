@@ -8,6 +8,8 @@ extends Node
 @onready var spawn_timer = $SpawnTimer
 @onready var engine_sound = $EngineSound
 @onready var game_over_sound = $GameOverSound
+@onready var difficulty_timer = $DifficultyTimer
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,8 +36,17 @@ func stop_pipes() -> void:
 func _on_spawn_timer_timeout():
 	spawn_pipes()
 
-
+func stop_difficulty_increase() -> void:
+	difficulty_timer.stop()
+	GameManager.reset_difficulty()
+	
 func on_game_over():
 	stop_pipes()
 	engine_sound.stop()
 	game_over_sound.play()
+	stop_difficulty_increase()
+
+
+func _on_difficulty_timer_timeout():
+	GameManager.increase_difficulty()
+	

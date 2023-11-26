@@ -36,3 +36,5 @@ func fly() -> void:
 		velocity.x += FORWARD_POWER
 	if Input.is_action_just_pressed("backward"):
 		velocity.x -= FORWARD_POWER
+	if Input.is_action_just_pressed("increase_difficulty"):
+		GameManager.increase_difficulty()
